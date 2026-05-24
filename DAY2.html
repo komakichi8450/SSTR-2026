@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSTR 2026 DAY 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+/* ===============================
+   Google Sites 完全対応ベース
+=============================== */
+html, body {
+    background: #0f172a;
+    color: #fff;
+    font-family: 'Urbanist', 'Noto Sans JP', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* コンテナ：高さ計算の安定化 */
+.container {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 20px 12px 100px;
+    box-sizing: border-box;
+    min-height: auto;
+}
+
+/* ===============================
+   ヘッダー
+=============================== */
+.header { text-align: center; margin-bottom: 25px; }
+.header h1 { font-size: 24px; color: #38bdf8; margin: 0; font-weight: bold; }
+.header p { color: #94a3b8; font-size: 14px; margin-top: 6px; }
+
+/* ===============================
+   スケジュールカード
+=============================== */
+.schedule-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 5px solid #38bdf8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.schedule-card.orange { border-left-color: #fb923c; }
+.schedule-card.lunch { border-left-color: #34d399; }
+.schedule-card.gas { border-left-color: #ef4444; }
+
+.time { font-size: 18px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; display: block; }
+.orange .time { color: #fb923c; }
+.lunch .time { color: #34d399; }
+.gas .time { color: #ef4444; }
+
+.schedule-card h2 { margin: 0 0 8px; font-size: 16px; color: #f8fafc; font-weight: bold; line-height: 1.4; }
+.schedule-card p { margin: 0 0 10px; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
+
+/* ===============================
+   移動ナビ（inline-block → block）
+=============================== */
+.nav-info { 
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #38bdf8;
+    margin-bottom: 15px;
+    display: block; /* ← これが超重要 */
+}
+
+/* ===============================
+   バッジ
+=============================== */
+.badge-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.badge {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+}
+.orange .badge { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
+.lunch .badge { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+.gas .badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+/* ===============================
+   マップボタン
+=============================== */
+.map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #38bdf8;
+    color: #000;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* ===============================
+   グルメセクション
+=============================== */
+.gourmet-section { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+.gourmet-title { font-size: 13px; color: #34d399; font-weight: bold; margin-bottom: 10px; }
+.gourmet-shop {
+    background: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #34d399;
+}
+.shop-name { font-weight: bold; color: #fff; font-size: 13px; margin-bottom: 4px; }
+.shop-desc { font-size: 11px; color: #cbd5e1; margin: 0 0 8px; line-height: 1.4; }
+.shop-link { display: block; color: #34d399; text-decoration: underline; font-size: 11px; font-weight: bold; margin-top: 5px; }
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- 07:45 -->
+    <div class="schedule-card">
+        <span class="time">07:45</span>
+        <h2>アパホテル〈金沢中央〉 出発</h2>
+        <p>チェックアウト後、能登半島縦断に向けてスタート！</p>
+        <a href="https://maps.google.com/?q=アパホテル金沢中央" class="map-btn" target="_blank"><i class="fa-solid fa-arrow-turn-up"></i> ホテル出発地点マップ</a>
+    </div>
+
+    <div class="nav-info">64km / 1時間15分</div>
+
+    <!-- 09:00 -->
+    <div class="schedule-card">
+        <span class="time">09:00 - 09:30</span>
+        <div class="badge-container"><span class="badge">滞在：30分</span></div>
+        <h2>能登金剛厳門</h2>
+        <p>能登金剛を代表するダイナミックな景観を歩いて散策します。</p>
+        <a href="https://maps.google.com/?q=能登金剛厳門" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 厳門マップ</a>
+    </div>
+
+    <div class="nav-info">7km / 10分</div>
+
+    <!-- 09:40 -->
+    <div class="schedule-card orange">
+        <span class="time">09:40 - 10:10</span>
+        <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
+        <h2>道の駅 とぎ海街道</h2>
+        <p>「世界一長いベンチ」を見学。ここで最初の10分休憩を兼ねるのがおすすめ。</p>
+        <a href="https://maps.google.com/?q=道の駅とぎ海街道" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-square-p"></i> バイク駐輪場マップ</a>
+    </div>
+
+    <div class="nav-info">15km / 20分</div>
+
+    <!-- 10:30 -->
+    <div class="schedule-card">
+        <span class="time">10:30 - 10:50</span>
+        <div class="badge-container"><span class="badge">滞在：20分</span></div>
+        <h2>ヤセの断崖</h2>
+        <p>スリル満点の絶壁を見学。</p>
+        <a href="https://maps.google.com/?q=ヤセの断崖" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 断崖スポットマップ</a>
+    </div>
+
+    <div class="nav-info">38km / 50分</div>
+
+    <!-- 11:50 -->
+    <div class="schedule-card lunch">
+        <span class="time">11:50 - 12:50</span>
+        <div class="badge-container"><span class="badge">ランチ（60分）</span></div>
+        <h2>輪島市内（朝市通り周辺）</h2>
+        <p>能登の新鮮な海鮮グルメでスタミナを回復します。</p>
+        <div class="gourmet-section">
+            <div class="gourmet-title">おすすめの食事処</div>
+            <div class="gourmet-shop">
+                <div class="shop-name">① やぶ新橋店</div>
+                <p class="shop-desc">能登丼や美味しいお蕎麦が絶大な支持を集める有名店。</p>
+                <a href="https://tabelog.com/ishikawa/A1704/A170401/17001407/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-info">12km / 20分</div>
+
+    <!-- 13:10 -->
+    <div class="schedule-card orange">
+        <span class="time">13:10 - 13:40</span>
+        <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
+        <h2>道の駅 千枚田ポケットパーク</h2>
+        <p>美しい「白米千枚田」を観光。名物「棚田米おにぎり」も絶品です。</p>
+        <a href="https://maps.google.com/?q=道の駅千枚田ポケットパーク" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-map-pin"></i> 白米千枚田マップ</a>
+    </div>
+
+    <div class="nav-info">36km / 55分</div>
+
+    <!-- 14:35 -->
+    <div class="schedule-card orange">
+        <span class="time">14:35 - 15:05</span>
+        <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
+        <h2>道の駅 狼煙（禄剛埼灯台）</h2>
+        <p>能登半島の最先端！灯台からは見渡す限りの日本海が一望できます。</p>
+        <a href="https://maps.google.com/?q=道の駅+狼煙" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-location-arrow"></i> 禄剛埼灯台マップ</a>
+    </div>
+
+    <div class="nav-info">22km / 30分</div>
+
+    <!-- 15:35 -->
+    <div class="schedule-card">
+        <span class="time">15:35 - 16:00</span>
+        <div class="badge-container"><span class="badge">滞在：25分</span></div>
+        <h2>見附島（軍艦島）</h2>
+        <p>軍艦のような形をした迫力ある奇岩を観光。</p>
+        <a href="https://maps.google.com/?q=見附島" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 見附島マップ</a>
+    </div>
+
+    <div class="nav-info">49km / 1時間</div>
+
+    <!-- 17:00 -->
+    <div class="schedule-card orange">
+        <span class="time">17:00 - 17:10</span>
+        <div class="badge-container"><span class="badge">休憩（10分）</span></div>
+        <h2>道の駅 のとじま</h2>
+        <p>ここで一度しっかり10分間の休憩を挟んで疲労をリセットします。</p>
+        <a href="https://maps.google.com/?q=道の駅+のとじま" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-map-pin"></i> 能登島マップ</a>
+    </div>
+
+    <div class="nav-info">25km / 30分</div>
+
+    <!-- 17:40 -->
+    <div class="schedule-card gas">
+        <span class="time">17:40 - 17:50</span>
+        <div class="badge-container"><span class="badge">給油（10分）</span></div>
+        <h2>高岡市内 or 氷見IC付近 GS</h2>
+        <p>満タン給油を行ってゴールを目指します。</p>
+    </div>
+
+    <div class="nav-info">6km / 10分</div>
+
+    <!-- 18:00 -->
+    <div class="schedule-card lunch">
+        <span class="time">18:00 頃</span>
+        <div class="badge-container"><span class="badge" style="background:#34d399; color:#000;">GOAL‼</span></div>
+        <h2>ホテルアルファーワン高岡駅前</h2>
+        <p>能登半島縦断、本当にお疲れ様でした！</p>
+        <a href="https://maps.google.com/?q=ホテルアルファーワン高岡駅前" class="map-btn" style="background:#34d399;" target="_blank"><i class="fa-solid fa-door-open"></i> ホテルチェックイン</a>
+    </div>
+
+</div>
+</body>
+</html>

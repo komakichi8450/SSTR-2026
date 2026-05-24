@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSTR 2026 DAY 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 最もシンプルで絶対にスクロールがバグらないベース設定 */
+        html, body {
+            background: #0f172a;
+            color: #fff;
+            font-family: 'Urbanist', 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            padding: 20px 12px 100px 12px; /* 下部に大きな余白 */
+            box-sizing: border-box;
+        }
+
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { font-size: 26px; color: #fb923c; margin: 0; font-weight: bold; }
+        .header p { color: #94a3b8; font-size: 15px; margin-top: 6px; }
+
+        /* ポイント表 */
+        .summary-box { background: rgba(30, 41, 59, 0.9); border: 2px solid #fb923c; border-radius: 12px; padding: 12px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); overflow-x: auto; }
+        .summary-box h3 { margin: 0 0 10px 0; color: #fb923c; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .summary-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; min-width: 280px; }
+        .summary-table th { color: #94a3b8; padding: 6px; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .summary-table td { padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
+        .summary-table td.wrap { white-space: normal; }
+        .highlight-text { color: #fb923c; font-weight: bold; }
+        .point-total { color: #34d399; font-weight: bold; font-size: 14px; }
+
+        /* スケジュールカード単体 */
+        .schedule-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left: 5px solid #fb923c; /* 左端の線でタイムライン感を演出 */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* 色変え用 */
+        .schedule-card.rule { border-left-color: #38bdf8; }
+        .schedule-card.lunch { border-left-color: #34d399; }
+        .schedule-card.gas { border-left-color: #ef4444; }
+
+        .time { font-size: 18px; font-weight: bold; color: #fb923c; display: block; margin-bottom: 5px; }
+        .schedule-card.rule .time { color: #38bdf8; }
+        .schedule-card.lunch .time { color: #34d399; }
+        .schedule-card.gas .time { color: #ef4444; }
+
+        .schedule-card h2 { margin: 0 0 8px 0; font-size: 17px; color: #f8fafc; font-weight: bold; }
+        .schedule-card p { margin: 0 0 10px 0; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
+
+        /* 移動ナビ */
+        .nav-info { 
+            background: rgba(251, 146, 60, 0.1); 
+            border: 1px solid rgba(251, 146, 60, 0.2); 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+            font-size: 12px; 
+            color: #fb923c; 
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .badge-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+        .badge { display: inline-block; background: rgba(251, 146, 60, 0.2); color: #fb923c; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .rule .badge { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .lunch .badge { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+        .gas .badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .map-btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: #fb923c; color: #000; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; margin-top: 5px; }
+        .sa-list { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; font-size: 11px; color: #94a3b8; line-height: 1.5; border-left: 3px solid #38bdf8; margin-top: 8px; margin-bottom: 12px; }
+
+        /* 居酒屋セクション */
+        .gourmet-section { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .gourmet-title { font-size: 14px; color: #34d399; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .gourmet-shop { background: rgba(0,0,0,0.2); border-radius: 6px; padding: 10px; margin-bottom: 10px; border-left: 3px solid #34d399; }
+        .shop-name { font-weight: bold; color: #fff; font-size: 13px; margin-bottom: 4px; }
+        .shop-desc { font-size: 11px; color: #cbd5e1; margin: 0 0 8px 0; }
+        .shop-link { display: inline-flex; align-items: center; gap: 4px; color: #34d399; text-decoration: none; font-size: 11px; font-weight: bold; border: 1px solid rgba(52, 211, 153, 0.3); padding: 3px 8px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>DAY 1: 東京 ➔ 金沢</h1>
+        <p>2026.05.30 SAT</p>
+    </div>
+
+    <div class="summary-box">
+        <h3><i class="fa-solid fa-calculator"></i> ポイントシミュレーション</h3>
+        <table class="summary-table">
+            <thead>
+                <tr><th>スポット</th><th>詳細</th><th>Pt</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>豊海水産埠頭</td><td class="wrap">スタート地点登録</td><td class="highlight-text">0 pt</td></tr>
+                <tr><td>中央/長野道 PA/SA</td><td class="wrap">全立ち寄り (11箇所想定)</td><td class="highlight-text">11 pt</td></tr>
+                <tr><td>道の駅 4箇所</td><td class="wrap">風穴 / 奥飛騨 / 宙ドーム神岡 / 細入</td><td class="highlight-text">8 pt</td></tr>
+                <tr><td>道の駅 射水</td><td class="wrap">【指定道の駅】3ポイント</td><td class="highlight-text">3 pt</td></tr>
+                <tr><td>道の駅 氷見</td><td class="wrap">【能登復興応援】3ポイント</td><td class="highlight-text">3 pt</td></tr>
+                <tr style="background:rgba(52, 211, 153, 0.1);"><td><strong>【合計】完走確定</strong></td><td class="wrap">—</td><td class="point-total">25 pt</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="schedule-card">
+        <span class="time">04:00</span>
+        <h2>株式会社旭電通 集合</h2>
+        <p>各自最終チェックをして、豊海水産埠頭へ移動。</p>
+        <a href="https://maps.google.com/?q=株式会社旭電通" class="map-btn" target="_blank"><i class="fa-solid fa-location-dot"></i> 旭電通 集合場所</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 15km / <i class="fa-solid fa-clock"></i> 15分</div>
+
+    <div class="schedule-card">
+        <span class="time">04:15</span>
+        <div class="badge-container">
+            <span class="badge">START (0pt)</span>
+        </div>
+        <h2>豊海水産埠頭</h2>
+        <p>早朝の都内をスムーズに移動し、日の出時刻まで待機します。</p>
+        <a href="https://www.google.co.jp/maps/place/%E8%B1%8A%E6%B5%B7%E6%B0%B4%E7%94%A3%E5%9F%A0%E9%A0%AD/@35.6547295,139.7613564,16z/data=!4m6!3m5!1s0x60188bd3830bc507:0xf4af67c7c6f9ee65!8m2!3d35.6513053!4d139.7677761!16s%2Fg%2F11b7qctgp6?entry=ttu&g_ep=EgoyMDI2MDUxNy4wIKXMDSoASAFQAw%3D%3D" class="map-btn" target="_blank"><i class="fa-solid fa-flag"></i> スタート地点</a>
+    </div>
+
+    <div class="nav-info" style="color:#38bdf8;"><i class="fa-solid fa-road"></i> 約220km / <i class="fa-solid fa-clock"></i> 4時間40分</div>
+
+    <div class="schedule-card rule">
+        <span class="time">04:27 - 09:30</span>
+        <div class="badge-container">
+            <span class="badge">高速道路ETCルール</span>
+        </div>
+        <h2>中央道➔長野道 PA/SA全走破</h2>
+        <p>日の出（4:27）と同時にシステム登録して出発。各1pt獲得のため全PA/SAを網羅. 松本ICで下車。</p>
+        <div class="sa-list">
+            <strong>【予定PA/SA】</strong><br>石川PA ➔ 藤野PA ➔ 談合坂SA(20分) ➔ 初狩PA ➔ 釈迦堂PA ➔ 境川PA ➔ 双葉SA(20分) ➔ 八ヶ岳PA ➔ 中央道原PA ➔ 諏訪湖SA(20分) ➔ みどり湖PA
+        </div>
+    </div>
+
+    <div class="nav-info" style="color:#ef4444;"><i class="fa-solid fa-road"></i> 7km / <i class="fa-solid fa-clock"></i> 15分</div>
+
+    <div class="schedule-card gas">
+        <span class="time">09:45 - 09:55</span>
+        <div class="badge-container">
+            <span class="badge">給油（10分）</span>
+        </div>
+        <h2>apollostation ユメックス新村SS</h2>
+        <p>松本IC下車後、国道158号沿いの㈱YOUMEXにて全員満タンに給油。ここから険しい峠越えに備えます。</p>
+        <a href="https://maps.google.com/?q=apollostation+ユメックス新村SS" class="map-btn" style="background:#ef4444; color:white;" target="_blank"><i class="fa-solid fa-gas-pump"></i> ガソリンスタンド</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 25km / <i class="fa-solid fa-clock"></i> 35分</div>
+
+    <div class="schedule-card">
+        <span class="time">10:30 - 10:40</span>
+        <div class="badge-container">
+            <span class="badge">道の駅 (2pt)</span>
+        </div>
+        <h2>道の駅 風穴の里</h2>
+        <p>国道158号で下道セクション開始。10分休憩。</p>
+        <a href="https://maps.google.com/?q=道の駅+風穴の里" class="map-btn" target="_blank"><i class="fa-solid fa-p"></i> バイク駐輪場</a>
+    </div>
+
+    <div class="nav-info" style="color:#34d399;"><i class="fa-solid fa-road"></i> 40km / <i class="fa-solid fa-clock"></i> 40分</div>
+
+    <div class="schedule-card lunch">
+        <span class="time">11:20 - 12:20</span>
+        <div class="badge-container">
+            <span class="badge">昼食（1時間）</span>
+            <span class="badge" style="background:rgba(251, 146, 60, 0.2); color:#fb923c; margin-left:4px;">道の駅 (2pt)</span>
+        </div>
+        <h2>道の駅 奥飛騨温泉郷上宝</h2>
+        <p style="color:#34d399; font-weight:bold;"><i class="fa-solid fa-utensils"></i> 飛騨娘（飛騨牛かつ・ラーメン）</p>
+        <p>安房峠を越えてランチタイム。名物グルメで一気にスタミナ回復。</p>
+        <a href="https://maps.google.com/?q=道の駅+奥飛騨温泉郷上宝" class="map-btn" style="background:#34d399;" target="_blank"><i class="fa-solid fa-utensils"></i> ランチ</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 18km / <i class="fa-solid fa-clock"></i> 20分</div>
+
+    <div class="schedule-card">
+        <span class="time">12:40 - 12:45</span>
+        <div class="badge-container">
+            <span class="badge">道の駅 (2pt)</span>
+        </div>
+        <h2>道の駅 宙ドーム神岡</h2>
+        <p>移動時間20分の為、5分休憩。登録後すぐ出発。</p>
+        <a href="https://maps.google.com/?q=道の駅+宙ドーム神岡" class="map-btn" target="_blank"><i class="fa-solid fa-p"></i> バイク駐輪場</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 22km / <i class="fa-solid fa-clock"></i> 30分</div>
+
+    <div class="schedule-card">
+        <span class="time">13:15 - 13:25</span>
+        <div class="badge-container">
+            <span class="badge">道の駅 (2pt)</span>
+        </div>
+        <h2>道の駅 細入</h2>
+        <p>富山県突入。道の駅システム登録と10分のクイック休憩を挟みます。</p>
+        <a href="https://maps.google.com/?q=道の駅+細入" class="map-btn" target="_blank"><i class="fa-solid fa-p"></i> バイク駐輪場</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 48km / <i class="fa-solid fa-clock"></i> 50分</div>
+
+    <div class="schedule-card rule">
+        <span class="time">14:15 - 14:35</span>
+        <div class="badge-container">
+            <span class="badge">指定道の駅 (3pt)</span>
+        </div>
+        <h2>道の駅 射水</h2>
+        <p>20分休憩。ここで一気に3ポイント獲得！</p>
+        <a href="https://maps.google.com/?q=道の駅+射水" class="map-btn" target="_blank"><i class="fa-solid fa-p"></i> バイク駐輪場</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 23km / <i class="fa-solid fa-clock"></i> 30分</div>
+
+    <div class="schedule-card gas">
+        <span class="time">15:05 - 15:25</span>
+        <div class="badge-container">
+            <span class="badge">能登復興応援 (3pt)</span>
+        </div>
+        <h2>道の駅 氷見</h2>
+        <p>復興応援3ptを獲得！20分休憩。</p>
+        <a href="https://maps.google.com/?q=道の駅+氷見" class="map-btn" target="_blank"><i class="fa-solid fa-p"></i> バイク駐輪場</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 25km / <i class="fa-solid fa-clock"></i> 35分</div>
+
+    <div class="schedule-card">
+        <span class="time">16:00</span>
+        <h2>千里浜ドライブウェイ 今浜口</h2>
+        <p>今浜IC側から砂浜へ突入！引き締まった砂の上を慎重かつ爽快にクルージング。</p>
+        <a href="https://maps.google.com/?q=千里浜なぎさドライブウェイ+今浜口" class="map-btn" target="_blank"><i class="fa-solid fa-road"></i> 今浜口入口</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 8km / <i class="fa-solid fa-clock"></i> 10分</div>
+
+    <div class="schedule-card lunch">
+        <span class="time">16:10 - 17:10</span>
+        <div class="badge-container">
+            <span class="badge" style="background:#34d399; color:#000;">GOAL‼</span>
+        </div>
+        <h2>千里浜レストハウス前</h2>
+        <p>いよいよゴール！参加賞の受け取りなどのため1時間滞在します。夕陽をゆっくり迎える。</p>
+        <a href="https://maps.google.com/?q=千里浜レストハウス" class="map-btn" style="background:#34d399;" target="_blank"><i class="fa-solid fa-trophy"></i> レストハウス</a>
+    </div>
+
+    <div class="nav-info" style="color:#ef4444;"><i class="fa-solid fa-road"></i> 34km / <i class="fa-solid fa-clock"></i> 35分</div>
+
+    <div class="schedule-card gas">
+        <span class="time">17:45 - 17:55</span>
+        <div class="badge-container">
+            <span class="badge">給油（10分）</span>
+        </div>
+        <h2>コスモ石油 ワンダフルセルフ湊SS</h2>
+        <p>前日満タン給油。走行後の熱気と砂をまとった状態で一度給油を済ませます。</p>
+        <a href="https://maps.google.com/?q=コスモ石油+ワンダフルセルフ湊SS" class="map-btn" style="background:#ef4444; color:white;" target="_blank"><i class="fa-solid fa-gas-pump"></i> ガソリンスタンド</a>
+    </div>
+
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 8km / <i class="fa-solid fa-clock"></i> 20分</div>
+
+    <div class="schedule-card">
+        <span class="time">18:15 ~ FREE</span>
+        <h2>アパホテル金沢中央 到着</h2>
+        <p>チェックイン後、片町の街へ！</p>
+        <a href="https://maps.google.com/?q=アパホテル金沢中央" class="map-btn" target="_blank"><i class="fa-solid fa-hotel"></i> ホテル</a>
+        
+        <div class="gourmet-section">
+            <div class="gourmet-title"><i class="fa-solid fa-beer-mug-empty"></i> 片町周辺のおすすめ居酒屋</div>
+            <div class="gourmet-shop">
+                <div class="shop-name">① 個室居酒屋 金沢おでんと焼き鳥 いろは 金沢片町本店</div>
+                <p class="shop-desc">ホテルから徒歩2分！名物の金沢おでんや、香ばしく焼き上げた焼き鳥を完全個室でゆったり堪能できる人気店。</p>
+                <a href="https://tabelog.com/ishikawa/A1701/A170101/17015362/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+            <div class="gourmet-shop">
+                <div class="shop-name">② 金沢炉端 あっぱれ -片町本店-</div>
+                <p class="shop-desc">ホテルからすぐ近く！ノドグロや能登牛などの地物炉端焼きや、新鮮な北陸の海の幸を豪快に味わえる活気ある名店。</p>
+                <a href="https://tabelog.com/ishikawa/A1701/A170101/17010282/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+            <div class="gourmet-shop">
+                <div class="shop-name">③ 三幸 本店</div>
+                <p class="shop-desc">車麩やバイ貝が絶品の金沢おでんの超有名老舗店。地酒も豊富。</p>
+                <a href="https://tabelog.com/ishikawa/A1701/A170101/17002725/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
