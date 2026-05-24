@@ -54,12 +54,13 @@ html, body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.schedule-card.orange { border-left-color: #fb923c; }
+/* オレンジ → 青に統一 */
+.schedule-card.orange { border-left-color: #38bdf8; }
 .schedule-card.lunch { border-left-color: #34d399; }
 .schedule-card.gas { border-left-color: #ef4444; }
 
 .time { font-size: 18px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; display: block; }
-.orange .time { color: #fb923c; }
+.orange .time { color: #38bdf8; } /* ← 青に統一 */
 .lunch .time { color: #34d399; }
 .gas .time { color: #ef4444; }
 
@@ -67,7 +68,7 @@ html, body {
 .schedule-card p { margin: 0 0 10px; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
 
 /* ===============================
-   移動ナビ（inline-block → block）
+   移動ナビ
 =============================== */
 .nav-info { 
     background: rgba(56, 189, 248, 0.1);
@@ -77,7 +78,7 @@ html, body {
     font-size: 12px;
     color: #38bdf8;
     margin-bottom: 15px;
-    display: block; /* ← これが超重要 */
+    display: block;
 }
 
 /* ===============================
@@ -93,7 +94,10 @@ html, body {
     font-size: 11px;
     font-weight: bold;
 }
-.orange .badge { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
+
+/* オレンジ → 青に統一 */
+.orange .badge { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+
 .lunch .badge { background: rgba(52, 211, 153, 0.2); color: #34d399; }
 .gas .badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
 
@@ -164,7 +168,7 @@ html, body {
         <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
         <h2>道の駅 とぎ海街道</h2>
         <p>「世界一長いベンチ」を見学。ここで最初の10分休憩を兼ねるのがおすすめ。</p>
-        <a href="https://maps.google.com/?q=道の駅とぎ海街道" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-square-p"></i> バイク駐輪場マップ</a>
+        <a href="https://maps.google.com/?q=道の駅とぎ海街道" class="map-btn" target="_blank"><i class="fa-solid fa-square-p"></i> バイク駐輪場マップ</a>
     </div>
 
     <div class="nav-info">15km / 20分</div>
@@ -204,7 +208,7 @@ html, body {
         <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
         <h2>道の駅 千枚田ポケットパーク</h2>
         <p>美しい「白米千枚田」を観光。名物「棚田米おにぎり」も絶品です。</p>
-        <a href="https://maps.google.com/?q=道の駅千枚田ポケットパーク" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-map-pin"></i> 白米千枚田マップ</a>
+        <a href="https://maps.google.com/?q=道の駅千枚田ポケットパーク" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 白米千枚田マップ</a>
     </div>
 
     <div class="nav-info">36km / 55分</div>
@@ -215,7 +219,7 @@ html, body {
         <div class="badge-container"><span class="badge">道の駅（30分）</span></div>
         <h2>道の駅 狼煙（禄剛埼灯台）</h2>
         <p>能登半島の最先端！灯台からは見渡す限りの日本海が一望できます。</p>
-        <a href="https://maps.google.com/?q=道の駅+狼煙" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-location-arrow"></i> 禄剛埼灯台マップ</a>
+        <a href="https://maps.google.com/?q=道の駅+狼煙" class="map-btn" target="_blank"><i class="fa-solid fa-location-arrow"></i> 禄剛埼灯台マップ</a>
     </div>
 
     <div class="nav-info">22km / 30分</div>
@@ -237,7 +241,7 @@ html, body {
         <div class="badge-container"><span class="badge">休憩（10分）</span></div>
         <h2>道の駅 のとじま</h2>
         <p>ここで一度しっかり10分間の休憩を挟んで疲労をリセットします。</p>
-        <a href="https://maps.google.com/?q=道の駅+のとじま" class="map-btn" style="background:#fb923c; color:#000;" target="_blank"><i class="fa-solid fa-map-pin"></i> 能登島マップ</a>
+        <a href="https://maps.google.com/?q=道の駅+のとじま" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 能登島マップ</a>
     </div>
 
     <div class="nav-info">25km / 30分</div>
