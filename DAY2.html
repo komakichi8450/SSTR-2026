@@ -38,8 +38,8 @@ html, body {
    ヘッダー
 =============================== */
 .header { text-align: center; margin-bottom: 25px; }
-.header h1 { font-size: 24px; color: #38bdf8; margin: 0; font-weight: bold; }
-.header p { color: #94a3b8; font-size: 14px; margin-top: 6px; }
+.header h1 { font-size: 26px; color: #38bdf8; margin: 0; font-weight: bold; }
+.header p { color: #94a3b8; font-size: 15px; margin-top: 6px; }
 
 /* ===============================
    スケジュールカード
@@ -54,7 +54,6 @@ html, body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* オレンジ → 青に統一 */
 .schedule-card.orange { border-left-color: #38bdf8; }
 .schedule-card.lunch { border-left-color: #34d399; }
 .schedule-card.gas { border-left-color: #ef4444; }
@@ -64,7 +63,7 @@ html, body {
 .lunch .time { color: #34d399; }
 .gas .time { color: #ef4444; }
 
-.schedule-card h2 { margin: 0 0 8px; font-size: 16px; color: #f8fafc; font-weight: bold; line-height: 1.4; }
+.schedule-card h2 { margin: 0 0 8px; font-size: 17px; color: #f8fafc; font-weight: bold; }
 .schedule-card p { margin: 0 0 10px; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
 
 /* ===============================
@@ -121,7 +120,7 @@ html, body {
    グルメセクション
 =============================== */
 .gourmet-section { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-.gourmet-title { font-size: 13px; color: #34d399; font-weight: bold; margin-bottom: 10px; }
+.gourmet-title { font-size: 14px; color: #34d399; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 .gourmet-shop {
     background: rgba(0,0,0,0.2);
     border-radius: 6px;
@@ -131,13 +130,18 @@ html, body {
 }
 .shop-name { font-weight: bold; color: #fff; font-size: 13px; margin-bottom: 4px; }
 .shop-desc { font-size: 11px; color: #cbd5e1; margin: 0 0 8px; line-height: 1.4; }
-.shop-link { display: block; color: #34d399; text-decoration: underline; font-size: 11px; font-weight: bold; margin-top: 5px; }
+.shop-link { display: inline-flex; align-items: center; gap: 4px; color: #34d399; text-decoration: none; font-size: 11px; font-weight: bold; border: 1px solid rgba(52, 211, 153, 0.3); padding: 3px 8px; border-radius: 4px; }
 
     </style>
 </head>
 
 <body>
 <div class="container">
+
+    <div class="header">
+        <h1>DAY 2: 金沢 ➔ 能登半島 ➔ 高岡</h1>
+        <p>2026.05.31 SUN</p>
+    </div>
 
     <!-- 07:45 -->
     <div class="schedule-card">
@@ -188,13 +192,38 @@ html, body {
         <div class="badge-container"><span class="badge">ランチ（60分）</span></div>
         <h2>輪島市内（朝市通り周辺）</h2>
         <p>能登の新鮮な海鮮グルメでスタミナを回復します。</p>
+
         <div class="gourmet-section">
-            <div class="gourmet-title">おすすめの食事処</div>
+            <div class="gourmet-title"><i class="fa-solid fa-utensils"></i> おすすめの食事処</div>
+
+            <!-- ① やぶ新橋店 -->
             <div class="gourmet-shop">
                 <div class="shop-name">① やぶ新橋店</div>
                 <p class="shop-desc">能登丼や美味しいお蕎麦が絶大な支持を集める有名店。</p>
                 <a href="https://tabelog.com/ishikawa/A1704/A170401/17001407/" class="shop-link" target="_blank">店舗情報を見る</a>
             </div>
+
+            <!-- ② まつおか -->
+            <div class="gourmet-shop">
+                <div class="shop-name">② まつおか</div>
+                <p class="shop-desc">新鮮な海鮮丼が人気。朝市通りの中でも味の安定感が高い名店。</p>
+                <a href="https://tabelog.com/ishikawa/A1704/A170401/17001405/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+
+            <!-- ③ いしるの店 みなみ -->
+            <div class="gourmet-shop">
+                <div class="shop-name">③ いしるの店 みなみ</div>
+                <p class="shop-desc">能登名物「いしる」を使った料理が味わえる。旅の思い出に残る一品。</p>
+                <a href="https://tabelog.com/ishikawa/A1704/A170401/17001403/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+
+            <!-- ④ お食事処 みや -->
+            <div class="gourmet-shop">
+                <div class="shop-name">④ お食事処 みや</div>
+                <p class="shop-desc">焼き魚・煮魚が絶品。地元の人が通う落ち着いた食事処。</p>
+                <a href="https://tabelog.com/ishikawa/A1704/A170401/17001402/" class="shop-link" target="_blank">店舗情報を見る</a>
+            </div>
+
         </div>
     </div>
 
@@ -242,27 +271,4 @@ html, body {
         <a href="https://maps.google.com/?q=道の駅+のとじま" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 能登島マップ</a>
     </div>
 
-    <div class="nav-info"><i class="fa-solid fa-road"></i> 25km / <i class="fa-solid fa-clock"></i> 30分</div>
-
-    <!-- 17:40 -->
-    <div class="schedule-card gas">
-        <span class="time">17:40 - 17:50</span>
-        <div class="badge-container"><span class="badge">給油（10分）</span></div>
-        <h2>高岡市内 or 氷見IC付近 GS</h2>
-        <p>満タン給油を行ってゴールを目指します。</p>
-    </div>
-
-    <div class="nav-info"><i class="fa-solid fa-road"></i> 6km / <i class="fa-solid fa-clock"></i> 10分</div>
-
-    <!-- 18:00 -->
-    <div class="schedule-card lunch">
-        <span class="time">18:00 頃</span>
-        <div class="badge-container"><span class="badge" style="background:#34d399; color:#000;">GOAL‼</span></div>
-        <h2>ホテルアルファーワン高岡駅前</h2>
-        <p>能登半島縦断、本当にお疲れ様でした！</p>
-        <a href="https://maps.google.com/?q=ホテルアルファーワン高岡駅前" class="map-btn" style="background:#34d399;" target="_blank"><i class="fa-solid fa-door-open"></i> ホテルチェックイン</a>
-    </div>
-
-</div>
-</body>
-</html>
+    <div class="nav-info"><i class="fa-solid
