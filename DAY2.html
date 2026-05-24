@@ -60,7 +60,7 @@ html, body {
 .schedule-card.gas { border-left-color: #ef4444; }
 
 .time { font-size: 18px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; display: block; }
-.orange .time { color: #38bdf8; } /* ← 青に統一 */
+.orange .time { color: #38bdf8; }
 .lunch .time { color: #34d399; }
 .gas .time { color: #ef4444; }
 
@@ -68,7 +68,7 @@ html, body {
 .schedule-card p { margin: 0 0 10px; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
 
 /* ===============================
-   移動ナビ
+   移動ナビ（アイコン統一）
 =============================== */
 .nav-info { 
     background: rgba(56, 189, 248, 0.1);
@@ -95,9 +95,7 @@ html, body {
     font-weight: bold;
 }
 
-/* オレンジ → 青に統一 */
 .orange .badge { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
-
 .lunch .badge { background: rgba(52, 211, 153, 0.2); color: #34d399; }
 .gas .badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
 
@@ -149,7 +147,7 @@ html, body {
         <a href="https://maps.google.com/?q=アパホテル金沢中央" class="map-btn" target="_blank"><i class="fa-solid fa-arrow-turn-up"></i> ホテル出発地点マップ</a>
     </div>
 
-    <div class="nav-info">64km / 1時間15分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 64km / <i class="fa-solid fa-clock"></i> 1時間15分</div>
 
     <!-- 09:00 -->
     <div class="schedule-card">
@@ -160,7 +158,7 @@ html, body {
         <a href="https://maps.google.com/?q=能登金剛厳門" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 厳門マップ</a>
     </div>
 
-    <div class="nav-info">7km / 10分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 7km / <i class="fa-solid fa-clock"></i> 10分</div>
 
     <!-- 09:40 -->
     <div class="schedule-card orange">
@@ -171,7 +169,7 @@ html, body {
         <a href="https://maps.google.com/?q=道の駅とぎ海街道" class="map-btn" target="_blank"><i class="fa-solid fa-square-p"></i> バイク駐輪場マップ</a>
     </div>
 
-    <div class="nav-info">15km / 20分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 15km / <i class="fa-solid fa-clock"></i> 20分</div>
 
     <!-- 10:30 -->
     <div class="schedule-card">
@@ -182,7 +180,7 @@ html, body {
         <a href="https://maps.google.com/?q=ヤセの断崖" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 断崖スポットマップ</a>
     </div>
 
-    <div class="nav-info">38km / 50分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 38km / <i class="fa-solid fa-clock"></i> 50分</div>
 
     <!-- 11:50 -->
     <div class="schedule-card lunch">
@@ -200,7 +198,7 @@ html, body {
         </div>
     </div>
 
-    <div class="nav-info">12km / 20分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 12km / <i class="fa-solid fa-clock"></i> 20分</div>
 
     <!-- 13:10 -->
     <div class="schedule-card orange">
@@ -211,7 +209,7 @@ html, body {
         <a href="https://maps.google.com/?q=道の駅千枚田ポケットパーク" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 白米千枚田マップ</a>
     </div>
 
-    <div class="nav-info">36km / 55分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 36km / <i class="fa-solid fa-clock"></i> 55分</div>
 
     <!-- 14:35 -->
     <div class="schedule-card orange">
@@ -222,7 +220,7 @@ html, body {
         <a href="https://maps.google.com/?q=道の駅+狼煙" class="map-btn" target="_blank"><i class="fa-solid fa-location-arrow"></i> 禄剛埼灯台マップ</a>
     </div>
 
-    <div class="nav-info">22km / 30分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 22km / <i class="fa-solid fa-clock"></i> 30分</div>
 
     <!-- 15:35 -->
     <div class="schedule-card">
@@ -233,7 +231,7 @@ html, body {
         <a href="https://maps.google.com/?q=見附島" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 見附島マップ</a>
     </div>
 
-    <div class="nav-info">49km / 1時間</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 49km / <i class="fa-solid fa-clock"></i> 1時間</div>
 
     <!-- 17:00 -->
     <div class="schedule-card orange">
@@ -244,7 +242,7 @@ html, body {
         <a href="https://maps.google.com/?q=道の駅+のとじま" class="map-btn" target="_blank"><i class="fa-solid fa-map-pin"></i> 能登島マップ</a>
     </div>
 
-    <div class="nav-info">25km / 30分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 25km / <i class="fa-solid fa-clock"></i> 30分</div>
 
     <!-- 17:40 -->
     <div class="schedule-card gas">
@@ -254,7 +252,7 @@ html, body {
         <p>満タン給油を行ってゴールを目指します。</p>
     </div>
 
-    <div class="nav-info">6km / 10分</div>
+    <div class="nav-info"><i class="fa-solid fa-road"></i> 6km / <i class="fa-solid fa-clock"></i> 10分</div>
 
     <!-- 18:00 -->
     <div class="schedule-card lunch">
