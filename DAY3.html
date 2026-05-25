@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSTR 2026 DAY 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    /* ===============================
+       ベース
+    =============================== */
+    html, body {
+        background: #0f172a;
+        color: #fff;
+        font-family: 'Urbanist', 'Noto Sans JP', sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 20px 12px 100px;
+        box-sizing: border-box;
+    }
+
+    /* ===============================
+       ヘッダー
+    =============================== */
+    .header { text-align: center; margin-bottom: 25px; }
+    .header h1 { font-size: 26px; color: #a78bfa; margin: 0; font-weight: bold; }
+    .header p { color: #94a3b8; font-size: 15px; margin-top: 6px; }
+
+    /* ===============================
+       スケジュールカード
+    =============================== */
+    .schedule-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-left: 5px solid #a78bfa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .schedule-card.lunch  { border-left-color: #34d399; }
+    .schedule-card.gas    { border-left-color: #ef4444; }
+
+    .time {
+        font-size: 18px;
+        font-weight: bold;
+        color: #a78bfa;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .lunch  .time { color: #34d399; }
+    .gas    .time { color: #ef4444; }
+
+    .schedule-card h2 {
+        margin: 0 0 8px;
+        font-size: 17px;
+        color: #f8fafc;
+        font-weight: bold;
+    }
+    .schedule-card p {
+        margin: 0 0 10px;
+        color: #cbd5e1;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* ===============================
+       移動ナビ
+    =============================== */
+    .nav-info { 
+        background: rgba(167, 139, 250, 0.1);
+        border: 1px solid rgba(167, 139, 250, 0.2);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #a78bfa;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+
+    /* ===============================
+       バッジ
+    =============================== */
+    .badge-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+    .badge {
+        display: inline-block;
+        background: rgba(167, 139, 250, 0.2);
+        color: #a78bfa;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+    .lunch  .badge { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+    .gas    .badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+    /* ===============================
+       マップボタン
+    =============================== */
+    .map-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: #a78bfa;
+        color: #000;
+        padding: 10px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* ===============================
+       グルメセクション
+    =============================== */
+    .gourmet-section {
+        margin-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 15px;
+    }
+    .gourmet-title {
+        font-size: 14px;
+        color: #34d399;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .gourmet-shop {
+        background: rgba(0,0,0,0.2);
+        border-radius: 6px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-left: 3px solid #34d399;
+    }
+    .shop-name {
+        font-weight: bold;
+        color: #fff;
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+    .shop-desc {
+        font-size: 11px;
+        color: #cbd5e1;
+        margin: 0 0 8px;
+        line-height: 1.4;
+    }
+    .shop-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #34d399;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: bold;
+        border: 1px solid rgba(52, 211, 153, 0.3);
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>DAY 3: 高岡 ➔ 三芳PA</h1>
+        <p>2026.06.01 MON</p>
+        <p style="color:#a78bfa; font-size:14px; margin:6px 0 18px 0; text-align:center;">
+            <i class="fa-solid fa-motorcycle"></i> 本日の総走行距離：約403km
+        </p>
+    </div>
+    
+    <!-- 06:30 出発 -->
+    <div class="schedule-card">
+        <span class="time">06:30</span>
+        <h2>ホテルアルファーワン高岡駅前 出発</h2>
+        <p>早朝にチェックアウトし、日本海沿いを南下する最終日の旅路へスタート。</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=%E3%83%9B%E3%83%86%E3%83%AB%E3%82%A2%E3%83%AB%E3%83%95%E3%82%A1%E3%83%BC%E3%83%AF%E3%83%B3%E9%AB%98%E5%B2%A1%E9%A7%85%E5%89%8D"
+           class="map-btn" target="_blank">
+            <i class="fa-solid fa-hotel"></i> ホテルアルファーワン高岡駅前
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 13km /
+        <i class="fa-solid fa-clock"></i> 25分
+    </div>
+
+    <!-- 06:55 氷見魚市場食堂 -->
+    <div class="schedule-card">
+        <span class="time">06:55 - 07:55</span>
+        <div class="badge-container"><span class="badge">朝食（60分）</span></div>
+        <h2>氷見魚市場食堂</h2>
+        <p>氷見漁港で水揚げされたばかりの新鮮な魚介を使った海鮮丼で、最終日のエネルギーをチャージ。</p>
+
+        <a href="https://maps.app.goo.gl/7x7Lx7p7tq2GJtqF8"
+           class="map-btn" target="_blank">
+            <i class="fa-solid fa-fish"></i> 氷見魚市場食堂
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 12km /
+        <i class="fa-solid fa-clock"></i> 20分
+    </div>
+
+    <!-- 08:15 雨晴海岸 -->
+    <div class="schedule-card">
+        <span class="time">08:15 - 08:35</span>
+        <div class="badge-container"><span class="badge">滞在：20分</span></div>
+        <h2>雨晴海岸</h2>
+        <p>立山連峰と日本海が織りなす絶景ポイント。天候が良ければ、海越しに山々を望むドラマチックな景観を楽しめます。</p>
+
+        <a href="https://maps.app.goo.gl/1p5pZq9g7p9qLkqN7"
+           class="map-btn" target="_blank">
+            <i class="fa-solid fa-mountain-sun"></i> 雨晴海岸
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 63km /
+        <i class="fa-solid fa-clock"></i> 1時間10分
+    </div>
+
+    <!-- 09:45 親不知 無料駐車場 -->
+    <div class="schedule-card">
+        <span class="time">09:45 - 10:45</span>
+        <div class="badge-container"><span class="badge">観光（60分）</span></div>
+        <h2>親不知 無料駐車場 ＆ 親不知観光</h2>
+        <p>断崖絶壁と海が迫る「親不知」のダイナミックな景観を散策。旧北陸道や遊歩道を歩きながら、日本海と険しい地形のコントラストを体感します。</p>
+
+        <a href="https://maps.app.goo.gl/5mJXq3pQq7b2QkqP9"
+           class="map-btn" target="_blank">
+            <i class="fa-solid fa-location-dot"></i> 親不知 無料駐車場
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 約3km /
+        <i class="fa-solid fa-clock"></i> 約5分
+    </div>
+
+    <!-- 11:00 ランチ 道の駅 親不知ピアパーク -->
+    <div class="schedule-card lunch">
+        <span class="time">11:00 - 12:00</span>
+        <div class="badge-container"><span class="badge">ランチ（60分）</span></div>
+        <h2>道の駅 親不知ピアパーク（食事処 漁火）</h2>
+        <p style="color:#34d399; font-weight:bold;">
+            <i class="fa-solid fa-utensils"></i> 海鮮丼・刺身定食・日本海の幸
+        </p>
+        <p>日本海を眺めながら、新鮮な海の幸を使った海鮮料理を堪能。最終日の中盤に、ゆったりとしたランチタイムを過ごします。</p>
+
+        <a href="https://maps.app.goo.gl/9v7pQkq2Lq8mYtqN6"
+           class="map-btn" style="background:#34d399; color:#000;" target="_blank">
+            <i class="fa-solid fa-utensils"></i> 道の駅 親不知ピアパーク
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 95km /
+        <i class="fa-solid fa-clock"></i> 1時間30分
+    </div>
+
+    <!-- 13:30 妙高SA 給油 -->
+    <div class="schedule-card gas">
+        <span class="time">13:30 - 13:40</span>
+        <div class="badge-container"><span class="badge">給油（10分）</span></div>
+        <h2>上信越自動車道 妙高SA（上り）</h2>
+        <p>ここで一度満タン給油。関越道 三芳PAまで一気に走り切るための重要な給油ポイントです。</p>
+
+        <a href="https://maps.app.goo.gl/2q7pLm9qHt5yPkqN8"
+           class="map-btn" style="background:#ef4444; color:#000;" target="_blank">
+            <i class="fa-solid fa-gas-pump"></i> 妙高SA（上り） ガソリンスタンド
+        </a>
+    </div>
+
+    <div class="nav-info">
+        <i class="fa-solid fa-road"></i> 約220km /
+        <i class="fa-solid fa-clock"></i> 約3時間30分
+    </div>
+
+    <!-- 17:10 三芳PA 解散 -->
+    <div class="schedule-card lunch">
+        <span class="time">17:10 頃</span>
+        <div class="badge-container">
+            <span class="badge" style="background:#34d399; color:#000;">GOAL‼</span>
+        </div>
+        <h2>関越自動車道 三芳PA（上り） 解散</h2>
+        <p>長距離ツーリングの最終ゴール地点。ここで解散となり、それぞれの帰路へ。SSTR 2026 の全行程、本当にお疲れさまでした。</p>
+
+        <a href="https://maps.app.goo.gl/6pQk9tq2Lm7yHpqN9"
+           class="map-btn" style="background:#34d399; color:#000;" target="_blank">
+            <i class="fa-solid fa-flag-checkered"></i> 三芳PA（上り）
+        </a>
+
+        <div class="gourmet-section">
+            <div class="gourmet-title">
+                <i class="fa-solid fa-mug-hot"></i> 三芳PA周辺でひと息
+            </div>
+
+            <div class="gourmet-shop">
+                <div class="shop-name">① 三芳PA フードコート</div>
+                <p class="shop-desc">軽食や甘味、コーヒーなど、解散前に一息つくのにちょうど良いスポット。</p>
+                <a href="https://www.driveplaza.com/sapa/1800/1800041/1/service/"
+                   class="shop-link" target="_blank">サービス情報</a>
+            </div>
+
+            <div class="gourmet-shop">
+                <div class="shop-name">② お土産コーナー</div>
+                <p class="shop-desc">関越道沿線の名産品やスイーツなど、最後の記念にお土産を購入できます。</p>
+                <a href="https://www.driveplaza.com/sapa/1800/1800041/1/shopping/"
+                   class="shop-link" target="_blank">お土産情報</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
